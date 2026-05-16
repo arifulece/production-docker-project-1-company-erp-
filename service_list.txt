@@ -1,0 +1,10 @@
+httpd
+nginx
+docker
+ansible
+zabbix
+sshd
+firewalld
+mysqld
+grafana
+prometheues
