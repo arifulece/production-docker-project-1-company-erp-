@@ -1,0 +1,29 @@
+services:
+
+  app:
+    build: ./app
+    container_name: erp-app
+
+  nginx:
+    image: nginx:1.28
+    container_name: erp-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+
+  db:
+    image: mariadb:11
+    container_name: erp-db
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - erp-db-data:/var/lib/mysql
+
+volumes:
+  erp-db-data:
